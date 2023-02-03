@@ -1,1 +1,21 @@
-<span>Products component!</span>
+<div *ngFor="let item of productsByCategory">
+
+  <h2>{{item.category}}</h2>
+
+  <div *ngFor="let product of item.products" style="display: inline-flex">
+
+    <div class="card" style="width: 18rem;">
+      <img src="{{product.image}}" class="card-img-top" alt="...">
+
+      <div class="card-body">
+        <h5 class="card-title">{{product.title}}</h5>
+        <p class="card-text">{{product.description}}</p>
+        <h4>{{product.price}}</h4>
+        <a class="btn btn-primary" (click)="comprar(product)">COMPRAR</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+

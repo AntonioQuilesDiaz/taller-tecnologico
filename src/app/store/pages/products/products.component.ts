@@ -5,36 +5,38 @@ import { ProductsService } from '../../services/products.service';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent implements OnInit {
-
   productsByCategory: GroupProducts[] = [];
 
-  constructor(private _productsService: ProductsService) { }
+  constructor(private _productsService: ProductsService) {}
 
   ngOnInit(): void {
-
-    this._productsService.getProducts().subscribe((products: Product[]) => {      
+    this._productsService.getProducts().subscribe((products: Product[]) => {
       this.productsByCategory = this._groupByCategory(products);
     });
-
   }
 
   private _groupByCategory(products: Product[]): GroupProducts[] {
     let listGroup: GroupProducts[] = [];
-    products.forEach(product => {
-      const item = listGroup.find(g=>g.category === product.category);
-      if ( item ){
+    products.forEach((product) => {
+      const item = listGroup.find((g) => g.category === product.category);
+      if (item) {
         item.products.push(product);
       } else {
         listGroup.push({
           category: product.category,
-          products: [product]
-        })
+          products: [product],
+        });
       }
     });
     return listGroup;
   }
 
+  comprar(item: Product) {
+    this._productsService.addCart(item).subscribe((products: Product[]) => {
+      console.log('AÑADIDO CORRECTAMENTE');
+    });
+  }
 }

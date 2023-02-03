@@ -13,5 +13,7 @@ export class ProductsService {
   getProducts() {
     return this._http.get<Product[]>(`${environment.api}products`);
   }
-
+  addCart(product:Product){
+    return this._http.put<Product[]>(`${environment.api}carts/5`,[product])
+  }
 }
